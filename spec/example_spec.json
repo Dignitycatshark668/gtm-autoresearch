@@ -1,0 +1,95 @@
+{
+  "model": "health_score",
+  "version": "auto_v1",
+  "max_score": 100,
+  "features": {
+    "search_intensity": {
+      "weight": 1,
+      "min": -5,
+      "max": 25
+    },
+    "session_depth": {
+      "weight": 23,
+      "min": -5,
+      "max": 25
+    },
+    "days_active_norm": {
+      "weight": 6,
+      "min": -5,
+      "max": 25
+    },
+    "export_activity": {
+      "weight": 1,
+      "min": -5,
+      "max": 25
+    },
+    "has_searched": {
+      "weight": 1,
+      "min": -5,
+      "max": 25
+    },
+    "has_saved": {
+      "weight": 1,
+      "min": -5,
+      "max": 25
+    },
+    "alert_created": {
+      "weight": 25,
+      "min": -5,
+      "max": 25
+    },
+    "has_exported": {
+      "weight": 10,
+      "min": -5,
+      "max": 25
+    },
+    "activation_speed": {
+      "weight": 20,
+      "min": -5,
+      "max": 25
+    },
+    "credit_limit_hits": {
+      "weight": 6,
+      "min": -5,
+      "max": 25
+    },
+    "rage_clicks": {
+      "weight": 1,
+      "min": -5,
+      "max": 25
+    },
+    "email_engagement": {
+      "weight": 2,
+      "min": -5,
+      "max": 25
+    },
+    "noise_feature_1": {
+      "weight": 1,
+      "min": -5,
+      "max": 25
+    },
+    "noise_feature_2": {
+      "weight": 1,
+      "min": -5,
+      "max": 25
+    }
+  },
+  "tiers": {
+    "A": {
+      "min": 60,
+      "max": 101
+    },
+    "B": {
+      "min": 35,
+      "max": 60
+    },
+    "C": {
+      "min": 15,
+      "max": 35
+    },
+    "D": {
+      "min": 0,
+      "max": 15
+    }
+  }
+}
