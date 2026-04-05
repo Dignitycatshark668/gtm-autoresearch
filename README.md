@@ -12,7 +12,7 @@
 
 ## Why this exists
 
-SaaS teams change their scoring models constantly. Health score weights get tweaked. Engagement thresholds move. ICP definitions evolve. But almost nobody logs these changes as experiments.
+SaaS teams change their scoring models constantly — but almost nobody logs these changes as experiments. In ML that's malpractice. In GTM scoring it's standard practice.
 
 A typical workflow:
 1. VP of CS says "we should weight NPS higher"
@@ -24,9 +24,40 @@ A typical workflow:
 
 This is the equivalent of editing `train.py`, never committing, and deleting your terminal history.
 
-In ML that's malpractice. In GTM scoring it's standard practice.
+Most teams already experiment with their scoring models — they build geo-specific variants, test different feature sets, validate against revenue. The problem isn't a lack of experimentation. It's a lack of **memory**. Every weight change is a lost experiment because nobody logs what was tried, what it replaced, or whether it actually worked.
 
-**gtm-autoresearch** brings experiment discipline to scoring models. Every weight change is logged, evaluated against ground truth, and compared to baseline. The engine finds better weights and proves they work.
+**gtm-autoresearch** adds the memory layer. Every weight change becomes a logged, comparable, reversible experiment. The engine finds better weights and proves they work — and the journal means the next experiment learns from all the previous ones instead of starting blind.
+
+## Where this fits
+
+```
+┌─────────────────────────────────────────────┐
+│  Channel Execution Layer                    │
+│  Campaign variants, HOTL governance,        │
+│  multi-agent orchestration, API execution   │
+│  → Described in the playbook (see Related)  │
+├─────────────────────────────────────────────┤
+│  Experiment Engine (THIS REPO)              │
+│  Weight optimization, experiment journal,   │
+│  13 GTM-native metrics, keep-or-revert     │
+├─────────────────────────────────────────────┤
+│  Your ICP Foundation                        │
+│  Scoring model, enrichment pipeline,        │
+│  segmentation, ground truth data            │
+│  → You build this (or already have it)      │
+└─────────────────────────────────────────────┘
+```
+
+The bottom layer is the hardest to build and the most defensible - your ICP model, your enrichment pipeline, your ground truth. This repo sits in the middle: it takes your foundation and adds experiment discipline. The channel execution layer (running campaign variants, A/B tests on email/ads/pages) sits above and is described in the [playbook](https://mazorda.com/playbooks/autonomous-gtm-experimentation), not this repo.
+
+## What this repo does NOT do
+
+- **Send emails or run ad campaigns.** This optimizes scoring models, not campaign assets.
+- **Replace your ICP model.** You need a scoring foundation with features and known outcomes first. This makes it better.
+- **Require an LLM.** Mutations are random weight perturbations - cheap, fast, and sufficient for the weight-space search.
+- **Touch your production systems.** The engine reads data, runs experiments in memory, and writes to a journal file. Nothing else.
+
+---
 
 ## How it maps to Karpathy's design
 
@@ -89,6 +120,26 @@ Also tested against a production B2B SaaS dataset (tens of thousands of accounts
 
 ## Quick start
 
+### Option A: Run on your own data (recommended)
+
+If you already have account data with known outcomes (retention, churn, revenue):
+
+```bash
+# 1. Prepare a parquet file with columns: your scoring features + outcomes
+#    Required outcome columns (at least one): retained_6mo, churned, actual_ltv, mrr
+#    Feature columns: everything else (the engine auto-detects them)
+
+# 2. Run 2,000 experiments (~7 seconds)
+python3 engine/scoring_engine.py --n 2000 --metric revenue_capture_at_20 --data your_ground_truth.parquet
+
+# 3. Review what the engine found
+python3 analysis/review.py experiment_journal.jsonl
+```
+
+### Option B: Try with synthetic data first
+
+No data yet? Generate a test dataset with planted signals to see how the engine works:
+
 ```bash
 # 1. Generate synthetic data (5K accounts, planted signals)
 python3 examples/health_score/generate_data.py
@@ -96,7 +147,7 @@ python3 examples/health_score/generate_data.py
 # 2. Run 2,000 experiments (~7 seconds)
 python3 engine/scoring_engine.py --n 2000 --metric auc_roc_retain
 
-# 3. Review results
+# 3. Review results - the engine should recover all planted signals
 python3 analysis/review.py experiment_journal.jsonl
 
 # 4. Run validation tests
